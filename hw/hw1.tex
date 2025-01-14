@@ -1,0 +1,102 @@
+\documentclass[12pt, letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+
+\title{CSE 21 Hw 1}
+\author{Brian Masse}
+\date{January 13, 2025}
+
+\begin{document}
+
+\maketitle
+
+
+% MARK: Problem 1a
+% problem statement
+\bf{ 1. (a) Use regular induction to show that for all n $\ge$ 1 that }
+\[ \sum_{k=1}^{n} \frac{1}{(k)(k+1)} = \frac{n}{n+1}  \]
+
+% proving the base case
+\-\ \it{ i) Prove the base case: (n = 1) }
+
+\[ \sum_{k=1}^{1} \frac{1}{k( k + 1 )} = \frac{1}{2} = \frac{1}{1 + 1} \]
+
+% assuming the general case
+\-\ \it{ ii) Assume for some n = j  }
+\[ \sum_{k=1}^{j} \frac{1}{k( k + 1 )} = \frac{j}{j + 1}\]
+
+% showing the induction
+\-\ \it{ and show that it holds for j + 1  }
+
+\begin{eqnarray}
+&& \sum_{k=1}^{j + 1} \frac{1}{k( k + 1 )}\\
+&=& \frac{1}{(j + 1)(j + 2)} + \frac{j}{j + 1}\\
+&=& \frac{1 + j(j + 2)}{(j + 1)(j + 2)} \\
+&=& \frac{ (j + 1)^{2} }{(j + 1)(j + 2)} \\
+&=& \frac{ (j + 1) }{(j + 2)}
+\end{eqnarray}
+
+% MARK: Problem 1b
+% problems state
+\bf{ (b) Use regular induction to show that for all n $\ge$ 0 that }
+\[ \sum_{k=0}^{n} 2^{k} < 2^{n + 1}  \]
+
+% proving the base case
+\-\ \it{ i) Prove the base case: (n = 0) }
+
+\[ \sum_{k=0}{n} 2^{k} = 1 < 2 \]
+
+
+% prove the general case
+\-\ \it{ ii) Assume for some n = j  }
+
+\[ \sum_{k=0}{n} 2^{k} = 2^{n + 1}\]
+
+\-\ \it{ and show that it holds for j + 1  }
+
+\begin{eqnarray}
+&& \sum_{k=0}^{k} 2^{j + 1} \\
+&<& 2^{j + 1} + 2^{j + 1} \\
+&=& 2*2^{j +1 } = 2^{j + 2}
+\end{eqnarray}
+
+
+% MARK: problem 2a
+\bf{ 2. A password is a string over the alphabet of the 26 uppercase letters, the 26 lowercase letters, and the 10 digits }
+
+\it{ (a) How many 8-char passwords start and end with a digit?  }
+
+\[ k = 10\cdot (26 + 26 + 10)^{6} \cdot 10 = 10^{2} \cdot 62^{6}\]
+
+\begin{itemize}
+    \item \(10\) : number of ways to start the string with a number
+    \item \((26 + 26 + 10)^{6}\) number of 6-char strings
+    \item \(10 \) : number of ways to end the string with  a number
+\end{itemize} 
+
+% MARK: problem 2b
+\-\ \newline
+\it{ (b) How many 8-character passwords have exactly one uppercase and exactly one lowercase letter?  }
+
+\[ k = 26^{2} \cdot 10^{6} \]
+
+\begin{itemize}
+    \item \(26^{2}\) : number of combinations of 1 uppercase and 1 lowercase
+    \item \((10^{6}) \) : number of 6 char strings with only digits
+\end{itemize}
+
+
+% MARK: problem 2c
+\-\ \newline
+\it{ (c) How many 8-character passwords avoids having the word COUNT (with any combinationof upper and lowercase letters)  }
+
+\[ k = 26^{2} \cdot 10^{6} \]
+
+\begin{itemize}
+    \item \(26^{2}\) : number of combinations of 1 uppercase and 1 lowercase
+    \item \((10^{6}) \) : number of 6 char strings with only digits
+\end{itemize}
+
+
+
+\end{document}
