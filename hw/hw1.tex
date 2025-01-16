@@ -1,6 +1,8 @@
 \documentclass[12pt, letterpaper]{article}
 
 \usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage[a4paper, total={6in, 9in}]{geometry}
 
 \title{CSE 21 Hw 1}
 \author{Brian Masse}
@@ -9,7 +11,7 @@
 \begin{document}
 
 \maketitle
-
+\newpage
 
 % MARK: Problem 1a
 % problem statement
@@ -38,6 +40,7 @@
 
 % MARK: Problem 1b
 % problems state
+\-\ \newline
 \bf{ (b) Use regular induction to show that for all n $\ge$ 0 that }
 \[ \sum_{k=0}^{n} 2^{k} < 2^{n + 1}  \]
 
@@ -62,6 +65,7 @@
 
 
 % MARK: problem 2a
+\newpage
 \bf{ 2. A password is a string over the alphabet of the 26 uppercase letters, the 26 lowercase letters, and the 10 digits }
 
 \it{ (a) How many 8-char passwords start and end with a digit?  }
@@ -76,13 +80,14 @@
 
 % MARK: problem 2b
 \-\ \newline
-\it{ (b) How many 8-character passwords have exactly one uppercase and exactly one lowercase letter?  }
+\it{ (b) How many 8-character passwords have exactly one uppercase and exactly one lowercase letter?  ( and the rest are digits ) }
 
-\[ k = 26^{2} \cdot 10^{6} \]
+\[ k = 26^{2} \cdot {8 \choose 2} \cdot 10^{6} \]
 
 \begin{itemize}
-    \item \(26^{2}\) : number of combinations of 1 uppercase and 1 lowercase
-    \item \((10^{6}) \) : number of 6 char strings with only digits
+    \item \(26^{2}\) : Number of ways to choose an uppercase and lower case letter
+    \item \( {8 \choose 2} \) : Number of ways to arrange an 2 elements in the string
+    \item \(10^{6} \) : number of 6 char strings with only digits
 \end{itemize}
 
 
@@ -90,13 +95,130 @@
 \-\ \newline
 \it{ (c) How many 8-character passwords avoids having the word COUNT (with any combinationof upper and lowercase letters)  }
 
-\[ k = 26^{2} \cdot 10^{6} \]
+\[ k = (26 + 26 + 10)^{8} - 2^{5} \]
 
 \begin{itemize}
-    \item \(26^{2}\) : number of combinations of 1 uppercase and 1 lowercase
-    \item \((10^{6}) \) : number of 6 char strings with only digits
+    \item \((26 + 26 + 10)^{8}\) : Total number of length 8 strings
+    \item \((2^{5}) \) : number of case permutations of the word COUNT
+\end{itemize}
+
+% MARK: problem 2d
+\-\ \newline
+\it{ (d) How many 8-character passwords consist of three different characters with 3 copies of two chracters and 2 copies of the other?  }
+
+\[ k = {62 \choose 3} \cdot {3 \choose 2} \cdot \left( \dfrac{8!}{3!3!2!} \right) \]
+
+\begin{itemize}
+    \item \(62 \choose 3\) : Number of ways to choose 3 characters from the alphabet
+    \item \(3 \choose 2\) : Number of ways to pick 2 characters from 3 characters
+    \item \(\frac{8!}{3!3!2!}  \) : Number of anagrams of the 3 characters (given the configuration specified by the problem)
 \end{itemize}
 
 
+% MARK: problem 2e
+\-\ \newline
+\it{ (e) How many 8-character passwords consist of 8 different letters that are in alphabetical order such that each letter can be uppercase or lowercase? }
+\[ k =  {26 \choose 8} \cdot 1 \cdot 2^{8}\]
+
+\begin{itemize}
+    \item \(26 \choose 8\) : Number of ways to choose pick 8 unique characters from the english alphabet
+    \item \(1\) :Number of ways to arrange them in correct alphabetical order
+    \item \(2^{8}\) : Number of combinations of upper and lowercase characters. 
+\end{itemize}
+
+
+% MARK: Problem 3a
+\newpage
+\bf{ 3. For each expression, describe a set of objects that is counted by the expression and include your reasoning }
+
+\-\ \newline
+\it{ (a) }
+\[ 8 \cdot 26 \cdot (26 + 10)^{7} \]
+
+\emph{A string, starting with a number 0 - 7, followed by an english character, followed by 7 characters, either number or letter}
+
+\begin{itemize}
+    \item \(8\) : States the string must start with a digit belong to \{ 0, 1, 2, 3, 4, 5, 6, 7 \}
+    \item \(26\) : States the second element in the string must be a letter in the english alphabet
+    \item \(36^{7}\) : Number of length 7 strings using numbers and letters
+\end{itemize}
+
+% MARK: Problem 3b
+\-\ \newline
+\it{ (b) }
+\[ 10^{2}(26 + 26)^{6} + 26^2(10 + 26)^6 \]
+
+\emph{the number of \\\\
+a) strings of length 8 that start with 2 numbers, and the rest are upper/lowercase letters \\\\
+b) strings of length 8 that start with 2 uppercase letters, and the rest are lowercase letters or numbers}
+
+\begin{itemize}
+    \item \(10^{2}\) : States that the string (a) must start with 2 numbers
+    \item \((26 + 26)^{6}\) : States the remainder is a length 6 string with upper and lowercase letters.
+    \item \(26^{2}\) : States that the string (b) must start with 2 uppercase letters
+    \item \( (10+26)^{6} \) : States that the remainder is a length 6 string with lowercase letters and numbers
+\end{itemize}
+
+
+% MARK: Problem 3c
+\-\ \newline
+\it{ (c) }
+\[ (26 + 26 + 10)^{8} - 10^{8} \]
+
+\emph{Number of length 8 strings with at least one letter}
+
+\begin{itemize}
+    \item \((26 + 26 + 10)^{8}\) : Number of length 8 strings
+    \item \(10^{8}\) : Number of length 8 strings without a letter
+\end{itemize}
+
+% MARK: Problem 3d
+\-\ \newline
+\it{ (d) }
+\[ (4!)2^{4} \]
+
+\emph{ Number of length 8 strings starting with an anagram of 4 unique characters, and ending with a length 4 binary string }
+
+\begin{itemize}
+    \item \(4!\) : Number of Anagrams of 4 unique characters
+    \item \(2^{4}\) : Number of length 4 binary strings
+\end{itemize}
+
+
+% MARK: 4a
+\newpage
+\bf{ 4. (a) How many different ways are tehre to arrange the letters in DISCRETEMATHEMATICS }
+
+\[ k = \frac{18!}{ 2!2!2!3!3!2!2! }  \]
+
+\-\ \newline
+\textnormal{I : 2, S : 2, C : 2, E : 3, T : 3, M : 2, A : 2}
+
+
+% MARK: 4b
+\-\ \newline
+\bf{ (b) How many different ways are there to color the 12 verticies of a hexagonal prism with 12 different colors? } \newline
+
+\textnormal{\it{ For each coloring, there are \\
+  6 rotations along the y axis \\
++ 2 rotations along the x axis \\
++ 2 rotations along the z axis \\
+= 10 total rearangements of one color configurations}} 
+
+\-\ \newline
+\textnormal{Number of unique colorings = \( \frac{12!}{24} \)}
+
+
+% MARK: 4c
+\-\ \newline
+\bf{ (c) How many different ways are there to color the 6 edges of a tetrahedron with 6 colors? } \newline
+
+\textnormal{\it{ For each coloring, there are \\
+3 distinct rotations along the y-axis \\
+3 distinct rotations along the z-axis
+}}
+
+\-\ \newline
+\textnormal{ Number of unique colorings = \( \frac{6!}{12} \) }
 
 \end{document}
