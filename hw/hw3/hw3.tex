@@ -13,5 +13,293 @@
 \maketitle
 \newpage
 
+% MARK: Problem 1
+% problem statement
+\bf{ 1. Consider the set H of all non-negative integer solutions to the equation: }
+
+\[ a_{1} + a_{2} + a_{3} + a_{4} + a_{5} + a_{6} = 30  \]
+
+\-\ \newline
+\textnormal{You wish to pick one of the elements of H at random and the way you decide to do it is the following:
+Initialize a 6-tuple to be all zeros (0,0,0,0,0,0) Roll a fair 6 sided die 30 times. For each roll that shows a 1, increment the 1st position, for each roll
+that shows a 2, increment the 2nd position and so on}
+
+% MARK: Problem 1a
+\-\ \newline
+\-\ \newline
+\-\ \it{ a) Justify that it is possible for any element of H to be produced using this sampling process }
+
+\-\ \newline
+\textnormal{There are \( {30 + 6 - 1 \choose 6 - 1} = {35 \choose 5} \) distributions. (As concluded using Stars and Bars method)}
+
+\-\ \newline
+\textnormal{ There are \(6^{30}\) possibilities using the dice rolling sampling. }
+
+\-\ \newline
+\textnormal{ Because \({35 \choose 5} < 6^{30}\) it is possible to generate every possible distribution using this sampling process. (It is possible to construct a function that maps a subset of the dice results to each event in the sample space.)}
+
+% MARK: Problem 1b
+\-\ \newline
+\-\ \newline
+\-\ \it{ b) Using this sampling process, what is the probability that the first entry is 0 or the last entry is 0? }
+
+\[ 2 \cdot \frac{5^{30}}{6^{30}} \approx 0.0084\]
+
+\begin{itemize}
+    \item \(2\) : There are two possibilities: either roll no 6s, or no 1s.
+    \item \({5^{30}}\) : Ways to roll only 5 numbers 30 times.
+    \item \(6^{30}\) : Total ways to roll all 6 dice 30 times.
+\end{itemize} 
+
+% MARK: Problem 1c
+\-\ \newline
+\-\ \newline
+\-\ \it{ c) What is the probability that the first entry is 15 or the last entry is 15? }
+
+\[ 2 \cdot \frac{{30 \choose 15} \cdot 5^{15}}{6^{30}} \approx 4.282 \cdot 10^{-5}\] 
+
+\begin{itemize}
+    \item \(2\) : There are two possibilities: Either roll 15 1s or 15 6s
+    \item \({{30 \choose 15}}\) : Ways to pick out 15 of the 30 dice rolls to be either 1 or 6.
+    \item \(5^{15}\) : Ways to roll only 5 number 15 times.
+    \item \(6^{30}\) : Total ways to roll all 6 dice 30 times.
+\end{itemize} 
+
+% MARK: Problem 1d
+\-\ \newline
+\-\ \newline
+\-\ \it{ d) What is the probability that at least one entry is greater than 15? }
+
+\[ 6 \cdot \frac{ \sum_{k=15}^{30} {30 \choose k} \cdot 5^{30 - k} }{6^{30}} \approx 0.000157\]
+
+\begin{itemize}
+    \item \(6\) : There are 6 ways to pick one number to roll at least 15 times
+    \item \({\sum_{k=15}^{30} {30 \choose k} \cdot 5^{30 - k}}\) : Ways to roll at least 15 of a certain number
+    \item \(6^{30}\) : Total ways to roll all 6 dice 30 times.
+\end{itemize} 
+
+% MARK: problem 1e
+\-\ \newline
+\-\ \newline
+\-\ \it{ e) Explain why this is not a uniform random sampling.  }
+
+\-\ \newline
+\-\ \newline
+\textnormal{Consider the probability of \(a_1\) being 15.}
+
+\-\ \newline
+\textnormal{a) for a uniform distribution:}
+
+\[ p_0(a_0 = 15) = \frac{{30 - 15 + 5 - 1 \choose 5 - 1}}{{31 \choose 5}} = \frac{{19 \choose 4}}{{35 \choose 5}} \approx 0.012\]
+
+\-\ \newline
+\textnormal{b) for the sampling procedure:}
+
+\[ p_1(a_0 = 15) = \frac{{30 \choose 15} \cdot 5^{15}}{6^{30}} \approx 2.141\cdot10^{-5}\]
+
+\-\ \newline
+\-\ \newline{\(p_0 \neq p_1\), thus this cannot be a uniform sampling}
+
+% MARK: problem 1f
+\-\ \newline
+\-\ \newline
+\-\ \it{ f) Which outcome or outcomes are the least likely to occur and why?  }
+
+\-\ \newline
+\textnormal{the outcomes where some \(a_i = 30\) are all equally the least likely to occur, since they can only be achieved by rolling 30 dice the same; the least likely event to occur.}
+
+
+% MARK: Problem 2
+% problem statement
+\newpage
+\bf{ 2. There are 3 bags, each with 10 colored balls. }
+
+% MARK: Problem 2a
+\-\ \newline
+\-\ \newline
+\-\ \it{ a) Suppose your friend gives you a bag uniformly at random. You reach in (with both hands) and
+pick two balls (one in each hand) of the same color. What is the probability that you are holding
+bag number 3?  }
+
+\-\ \newline
+\[p(A | B) = \frac{p(B | A)\cdotp(A)}{p(B)} \approx 0.256\]
+
+\-\ \newline
+\-\ \newline
+A : Set of all bags that are bag 3, 
+B : Set of all balls that are same color
+
+\begin{itemize}
+    \item \( p(A | B) \) : Probability of picking same colored balls from bag 3 = \(\frac{4}{9}\)
+    \item \( p(A) \) : Probability of picking bag 3 = \(\frac{1}{3} \)
+    \item \( p(B)\) : Probability of picking same colored Balls =
+\end{itemize} 
+
+\[ \frac{1}{3}( \frac{4}{9} + (\left(\frac{1}{5}\right)\left(\frac{1}{9}\right) + \left(\frac{4}{5}\right)\left(\frac{7}{9}\right)) + (\left(\frac{4}{5}\right)\left(\frac{7}{9}\right) + \left(\frac{1}{5}\right)\left(\frac{1}{9}\right)) ) \]
+
+\[ = \frac{78}{45 * 3}\]
+
+
+% MARK: Problem 2a
+\-\ \newline
+\-\ \newline
+\-\ \it{ b) Suppose your friend gives you a bag uniformly at random. You reach in (with both hands) and
+pick two balls (one in each hand) of different colors. What is the probability that you are holding
+bag number 3?  }
+
+\-\ \newline
+\[p(A | C) = \frac{p(C | A)\cdotp(A)}{p(C)} \approx 0.4386\]
+
+
+\-\ \newline
+\-\ \newline
+A : Set of all bags that are bag 3, 
+C : Set of all balls that are different color
+
+\begin{itemize}
+    \item \( p(A | C) \) : Probability of picking different colored balls from bag 3 = \(\frac{5}{9}\)
+    \item \( p(A) \) : Probability of picking bag 3 = \(\frac{1}{3} \)
+    \item \( p(B)\) : Probability of picking different colored Balls =
+\end{itemize} 
+
+\[ \frac{1}{3}( \frac{5}{9} + 2 \cdot (\left(\frac{1}{5}\right)\left(\frac{8}{9}\right) + \left(\frac{4}{5}\right)\left(\frac{2}{9}\right))) \]
+\[ = \frac{57}{45 * 3}\]
+
+
+% MARK: Problem 3a
+% problem statement
+\newpage
+\bf{ 3. Consider the set defined for any positive integer \( k: N_k = \{1,2,3,..k-1, k \} \)  }
+
+\-\ \newline
+\-\ \newline
+\-\ \it{ a) Suppose I pick a 3 element subset from \(N_9\) uniformly at random. What is the probability that
+the median element in my subset is in the set \(\{4, 5, 6\}\)  }
+
+\[ p = \frac{46}{{9 \choose 3}} = \frac{46}{84} \]
+
+\begin{itemize}
+    \item number of subsets with median 4: \(3\cdot5\)
+    \item number of subsets with median 5: \(4\cdot4\)
+    \item number of subsets with median 6: \(5\cdot3\)
+\end{itemize} 
+
+\-\ \newline
+\begin{itemize}
+    \item Sets with 4, 5, 6 as the median: 15 + 15 + 16 = 46
+    \item Total number of length 3 sets: \({9 \choose 3}\)
+\end{itemize} 
+
+% MARK: Problem 3b
+\-\ \newline
+\-\ \it{ b) Suppose I pick a sequence of length 3 such that each entry of the sequence is an element from \(N_9\)
+independently chosen uniformly at random. What is the probability that the median element in
+my sequence is in the set \(\{4, 5, 6\}\)  }
+
+\[ p = \frac{243}{9^{3}} = \frac{243}{729} \]
+
+\begin{itemize}
+    \item number of subsets with median 4: \(9\cdot9\)
+    \item number of subsets with median 5: \(9\cdot9\)
+    \item number of subsets with median 6: \(9\cdot9\)
+\end{itemize} 
+
+\-\ \newline
+\begin{itemize}
+    \item Sequences with 4, 5, 6 as the median: \(3 \cdot 9^{2} = 243\)
+    \item Total number of length 3 sequences: \(9 ^{3}\)
+\end{itemize} 
+
+
+% MARK: Problem 3c
+\-\ \newline
+\-\ \it{ c) For an arbitrary positive integer n, suppose I pick a 3 element subset from \(N_3n\) uniformly at
+random. Derive a formula for the probability that the median element in my subset is in the
+middle third of the set, i.e \(\{n + 1, n + 2, ..., 2n\}\)  }
+
+\-\ \newline
+\textnormal{ Number of subsets with some median \(k \in \{n + 1, n + 2, ..., 2n\}\) }
+\[ (k - 1)(3n - k) \]
+
+\-\ \newline
+\textnormal{All subsets with median belonging to \(\{n + 1, n + 2, ..., 2n\}\)}
+\[ \sum_{k=n+1}^{2n} (k - 1)(3n - k)\]
+
+\-\ \newline
+\textnormal{All possible sets}
+\[ {3n \choose 3} \]
+
+\-\ \newline
+\textnormal{thus,}
+\[ p(n) = \frac{ \sum_{k=n+1}^{2n} (k - 1)(3n - k) }{ {3n \choose 3 } } \]
+
+
+% MARK: Problem 3d
+\-\ \newline
+\-\ \it{ d) For an arbitrary positive integer n, suppose I pick a sequence of length 3 such that each entry
+of the sequence is an element from \(N_3n\) independently chosen uniformly at random. What is
+the probability that the median element in my sequence is in the middle third of the set? }
+
+\-\ \newline
+\textnormal{ Number of sequences with some median \(k \in \{n + 1, n + 2, ..., 2n\}\) }
+\[ (3n)^{2} \]
+
+\-\ \newline
+\textnormal{ All sequences with median belonging to \(\{n + 1, n + 2, ..., 2n\}\) }
+\[ {\sum_{k=n+1}^{2n} (3n)^{2} } \]
+
+\-\ \newline
+\textnormal{ Total number of sequences }
+\[ {(3n)^{3}} \]
+
+\-\ \newline
+\textnormal{ Thus, }
+\[ p(n) = \frac{ \sum_{k=n+1}^{2n} (3n)^{2} }{ (3n)^3 } = \frac{9\cdot n^{3}}{27 \cdot n^{3}} = \frac{1}{3}\]
+
+
+
+% MARK: Problem 4a
+% problem statement
+\newpage
+\bf{ 4. }
+
+\-\ \it{ a) Consider the trial of rolling two fair 6-sided dice and the random variable X is the absolute value
+of the difference of the two dice rolls. Compute the expected value of X  }
+
+\begin{eqnarray}
+E(X) &=& \sum_{s \in S}^{} p(s)X(s) \\
+&=& \sum_{r \in X(S)}^{} r\cdot p(X=r) \\
+&=& \sum_{k=0}^{5} k\cdot \frac{2\cdot(6-k)}{36} \\
+&\approx& 1.944
+\end{eqnarray}
+
+\begin{itemize}
+    \item k = 0 to 5 : There are only 6 possible outcomes for the absolute value of the difference of dice rolls: \{0, 1,2,3,4,5\}
+    \item r = k
+    \item p(X=r) = \( \frac{2\cdot(6-k)}{36} \), for each outcome r \(\in\) X(S), there are \(2\cdot (6-k)\) dice roll combinations, out of the 36 total possible combinations
+\end{itemize} 
+
+% MARK: Problem 4b
+\-\ \newline
+\-\ \it{ b) Suppose you are at a casino and you are playing roulette and your strategy is to bet 1 dollar on
+red You have a \(\frac{18}{38}\) probability of winning 1 dollar and \(\frac{20}{38}\) probability of losing 1 dollar.
+Suppose you start with 1 dollar and you play until you have no money left. What is the expected
+number of games you get to play? }
+
+\begin{eqnarray}
+    E(X) &=& E(X | B)P(B) + E(X | \overline{B})P(\overline{B}) \\
+    &=& 1 \cdot \left( \frac{18}{38} \right) - 1 \cdot \left( \frac{20}{38} \right) \\
+    &=& -\frac{1}{19}
+\end{eqnarray}
+
+\textnormal{Thus, you should expect to play 19 games before losing your 1 initial dollar. }
+
+\begin{itemize}
+    \item X : Expected amount of money earned after each game
+    \item B : Winning a game of Roulette
+    \item \(\overline{B}\) : Losing a game of Roulette
+    \item \(E(X | B)\) Expected money given that you win = 1
+    \item \(E(X | \overline{B})\) Expected money given that you lose = -1
+\end{itemize} 
 
 \end{document}
