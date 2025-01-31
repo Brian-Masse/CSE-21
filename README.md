@@ -6,6 +6,8 @@
 
 - **_Homework 2:_** Combinations, Inclusion/Exclusion, Binomial Identities, Stars and Bars
 
+- **_Homework 3:_** Linearity of Expectations, Sorting, Runtimes
+
 ### **Resources**
 
 - [**_latex (stripped package)_**](https://www.tug.org/mactex/morepackages.html)
