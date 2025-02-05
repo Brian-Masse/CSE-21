@@ -14,11 +14,10 @@ double search( int n, double error ) {
     double v = (hi + lo) / 2;
 
     printf("diff: %f, error: %f\n", hi - lo, (2* error));
+    printf( "lo: %f, hi: %f, v: %f\n", lo, hi, v );
 
 
     while ( hi - lo > (2 * error) ) {
-        
-        printf( "lo: %f, hi: %f, v: %f\n", lo, hi, v );
 
         if (f(v) == 0) {
             return v;
@@ -31,6 +30,8 @@ double search( int n, double error ) {
         }
 
         v = (hi + lo) / 2;
+
+        printf( "lo: %f, hi: %f, v: %f\n", lo, hi, v );
 
     }
 

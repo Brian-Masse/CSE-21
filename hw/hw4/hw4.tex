@@ -2,6 +2,8 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsmath}
 \usepackage[a4paper, total={6in, 9in}]{geometry}
 
 \title{CSE 21 HW 4}
@@ -12,6 +14,249 @@
 
 \maketitle
 \newpage
+
+
+% MARK: Problem 1a
+\bf{ 1. Consider the set H of all non-negative integer solutions to the equation: }
+
+\[ a_{1} + a_{2} + a_{3} + a_{4} + a_{5} + a_{6} = 30  \]
+
+\-\ \newline
+\textnormal{You wish to pick one of the elements of H at random and the way you decide to do it is the following:
+Initialize a 6-tuple to be all zeros (0,0,0,0,0,0) Roll a fair 6 sided die 30 times. For each roll that shows a 1, increment the 1st position, for each roll
+that shows a 2, increment the 2nd position and so on}
+
+\-\ \newline
+\-\ \newline
+\-\ \it{ a) What is the expected number of entries equal to zero using this sampling method? }
+
+\[ 
+X_i = 
+\begin{cases} 
+      1 \mbox{\textnormal{ if entry \(a_i\) = 0. (You roll none of i)}} \\
+      0 \mbox{\textnormal{ else}} \\
+   \end{cases}
+\]
+
+\begin{eqnarray}
+    E(X) &=& \sum_{k=1}^{6} E(X_i) \\
+    &=& \sum_{k=1}^{6} p(x = r) \\
+    &=& \sum_{k=1}^{6} \frac{5^{30}}{6^{30}} = 6 \cdot \frac{5^{30}}{6^{30}} \\
+    &\approx& 0.0253 \\
+    &=& 0
+\end{eqnarray}
+
+Using this distribution method, you can expect 0 \(a_i = 0\)
+
+
+% MARK: Problem 1b
+\-\ \newline
+\-\ \newline
+\-\ \it{ b) What is the expected number of entries equal to zero using a uniform sampling method? }
+
+\begin{eqnarray}
+    E(X) &=& \sum_{k=1}^{6} E(X_i) \\
+    &=& \sum_{k=1}^{6} \frac{{ 30 + 5 - 1 \choose 5 - 1 }}{{30 + 6 - 1 \choose 6 - 1}} \\
+    &=& \sum_{k=1}^{6} \frac{{ 34 \choose 4 }}{{35 \choose 5}} \\
+    &\approx& 0.871 \\
+    &=& 1
+\end{eqnarray}
+
+Using this distribution method, you can expect 1 \(a_i = 0\)
+
+% MARK: Problem 1c
+\-\ \newline
+\-\ \newline
+\-\ \it{ c) What is the expected number of entries equal to 1 using this sampling method? }
+
+\[ 
+X_i = 
+\begin{cases} 
+      1 \mbox{\textnormal{ if entry \(a_i\) = 1. (You roll only one of i)}} \\
+      0 \mbox{\textnormal{ else}} \\
+   \end{cases}
+\]
+
+\begin{eqnarray}
+    E(X) &=& \sum_{k=1}^{6} E(X_i) \\
+    &=& \sum_{k=1}^{6} \frac{{30 \choose 1} \cdot 5^{29}}{6^{30}} \\
+    &=& 6 \cdot \frac{ 30 \cdot 5^{29}}{6^{30}} \\
+    &\approx& 0.152 \\
+    &=& 0
+\end{eqnarray}
+
+Using this distribution method, you can expect at 0 \(a_i = 1\)
+
+
+% MARK: Problem 1d
+\-\ \newline
+\-\ \newline
+\-\ \it{ d) What is the expected number of entries equal to 1 using a uniform sampling method? }
+
+\begin{eqnarray}
+    E(X) &=& \sum_{k=1}^{6} E(X_i) \\
+    &=& \sum_{k=1}^{6} \frac{ {30 - 1 + 5 - 1 \choose  5 - 1} }{ {30 + 6 - 1 \choose 6 - 1} } \\
+    &=& 6 \cdot \frac{ {33 \choose 4} }{ {35 \choose 5 } } \\
+    &\approx& 0.756 \\
+    &=& 1
+\end{eqnarray}
+
+Using this distribution method, you can expect at 1 \(a_i = 1\)
+
+\newpage
+
+% MARK: Problem 2a
+\bf{ 2. Recall MinSort and BubbleSort from class. For these problems, assume that the input is a
+permutation of length n of distinct integers chosen uniformly at random. }
+
+\-\ \newline
+\-\ \newline
+\-\ \it{ a) Use linearity of expectation to compute the expected number of swaps for MinSort on an input (\(a_1...a_n\)) of distinct integers chosen uniformly at random }
+
+\[ 
+X_i = 
+\begin{cases} 
+      1 \mbox{\textnormal{ if \(a_1\) is in the wrong place (a swap occours) }} \\
+      0 \mbox{\textnormal{ else}} \\
+   \end{cases}
+\]
+
+\begin{eqnarray}
+    E(X) &=& \sum_{k=1}^{n - 1} E(X_i) = \sum_{k=1}^{n - 1} 1 - (\frac{1}{n - k + 1}) \\
+    &=& \sum_{k=1}^{n - 1} (\frac{n - k}{n - k + 1})
+\end{eqnarray}
+
+% MARK: Problem 2b
+\-\ \newline
+\-\ \newline
+\-\ \it{ b) Use linearity of expectation to compute the expected number of swaps for BubbleSort on an input (\(a_1...a_n\)) of distinct integers chosen uniformly at random }
+
+\[ X_i = \mbox{Expected number of swaps for } a_i = \sum_{j=1}^{i - 1} X_j \]
+
+\[ 
+X_j = 
+\begin{cases} 
+      1 \mbox{\textnormal{ if \(a_j\) \(>\) \(a_i\) }} \\
+      0 \mbox{\textnormal{ else}} \\
+   \end{cases}
+\]
+
+\begin{eqnarray}
+    E(X_i) &=& \sum_{j=1}^{i - 1} E(X_j) = \sum_{j=1}^{i - 1} \frac{n - i}{n} \\
+\end{eqnarray}
+
+\( \frac{n - i}{n} \) is the probability that some \(a_j\) before \(a_i\) is great than \(a_i\)
+
+\begin{eqnarray}
+    E(X) &=& \sum_{k=1}^{n} E(X_i) \\
+    &=& \sum_{k=1}^{n} \sum_{j=1}^{k - 1} \frac{n - k}{n} \\
+    &=& \sum_{k=1}^{n} (k - 1) (\frac{n - k}{n}) \\
+    &=& \frac{-(n+1)(n+2)}{6} + \frac{(n+1)(n+1)}{2} -n \\
+    &=& \frac{1}{6}n^{2} - \frac{1}{2} n + \frac{1}{3}
+\end{eqnarray}
+
+
+% MARK: Problem 3a
+\newpage
+\bf{ 3. For each algorithm, compute the exact number of times the algorithm prints in terms of n and compute the runtime in terms of $\theta$, where n \(\geq\) 3. }
+
+\-\ \newline
+\-\ \it{ a) }
+
+\begin{eqnarray}
+    &=& \sum_{i=1}^{n} 2i - 1 \\
+    &=& 2 \cdot (\sum_{i=1}^{n} i) - n \\
+    &=& n(n + 1) - n \\
+    &=& n^{2} \\
+\end{eqnarray}
+
+\[ f(n) = \theta(n^{2}) \]
+
+% MARK: Problem 3b
+\-\ \newline
+\-\ \it{ b) if n is even: }
+
+\[ 2\sum_{i=1}^{n / 2} i = n(n- 1) \]
+
+if n is odd:
+
+\[ 2(\sum_{i=1}^{n / 2} i) - 1 = n(n- 1) - 1 \]
+
+\-\ \newline
+in both cases \( f(n) = \theta(n^{2}) \)
+
+\-\ \newline
+\-\ \it{ c) }
+
+\begin{eqnarray}
+    &=& \sum_{i=1}^{n - 2} \sum_{j = i + 1}^{n - 1} ( n- j) \\
+    &=& \sum_{i=1}^{n - 2} n(n - i - 1) - ( \frac{(n - 1)(n)}{2} - \frac{i(i + 1)}{2} ) \\
+    &=& \sum_{i=1}^{n - 2} \frac{n^{2} - 2n + n}{2} - ni + \frac{1}{2}(i^{2} + i) \\
+    &=& \frac{1}{6} n^{3} - \frac{1}{2}n^{2} + \frac{1}{3}n
+\end{eqnarray}
+
+\[ f(n) = \theta(n^3) \]
+
+% MARK: Problem 4a
+\newpage
+\bf{ 4. Let f : R \(\rightarrow\) R be a continuous increasing function. 
+Then we can use a version of binary search to solve for the “root” of the function f (value x such that f(x) = 0.)
+ This algorithm will take the input f, starting value n such that 0 \(<\) r \(<\) n where r is the root of the function and an error term E. }
+
+\-\ \newline
+\-\ \newline
+\-\ \it{ a) Trace through the algorithm on the input FunctionSolverp(ln(x) + \(x^2\), 2, 0.03125).}
+
+\-\ \newline
+\begin{tabular}{ | l | l | l | l | l | l | r | }
+    \hline			
+    iteration & hi - lo \(>\) 2E & f(v) & f(v)\_\_0 & lo & hi & v \\
+    \hline			
+    0 & & & & 0 & 2 & 1 \\
+    1 & TRUE & 1 & \(>\) & 0 & 1 & 0.5 \\
+    2 & TRUE & -0.443 & \(<\) & 0.5 & 1 & 0.75 \\
+    3 & TRUE & 0.2748 & \(>\) & 0.5 & 0.75 & 0.625 \\
+    4 & TRUE & -0.07938 & \(<\) & 0.625 & 0.75 & 0.6875 \\
+    5 & TRUE & 0.0979 & \(>\) & 0.625 & 0.6875 & 0.656250 \\
+    6 & FALSE & & & & & \\
+    \hline  
+  \end{tabular}
+
+
+% MARK: 4b
+\-\ \newline
+\-\ \newline
+\-\ \it{ b) if n = \(2^{j}\) and E = \(2^{k}\) for some integers k and j such that k \(<\)j, how many iterations
+does the algorithm go through and why?.}
+ 
+\-\ \newline
+\textnormal{For every v \(>\) 1, f(v) = ln(v) + \(v^2\) \(>\) 0.}
+
+\-\ \newline
+\textnormal{Specifically, this happens when v = \(2^{i}\) for any i \(\in {\mathbb{Z}},  i > 0\)}
+
+\-\ \newline
+\textnormal{This means that the lowerBound (lo), will always stay 0 (since f(v) \(>\) 0), and that the upperBound (hi) will be divided by 2 each iteration. Observe:}
+
+
+\-\ \newline
+\begin{tabular}{ | l | l | l | l | l | r | }
+    \hline			
+    iteration & hi - lo \(>\) 2E & f(v)\_\_0 & lo & hi & v \\
+    \hline			
+    0 & & & 0 & \(2^{j}\) & \(2^{j - 1}\) \\
+    1 & \( 2^j > 2^{k + 1} \) & \(>\) & 0 & \(2^{j - 1}\) & \(2^{j - 2}\) \\
+    2 & \( 2^{j-1} > 2^{k + 1} \) & \(>\) & 0 & \(2^{j - 2}\) & \(2^{j - 3}\) \\
+...
+  \end{tabular}
+
+\-\ \newline 
+\-\ \newline 
+\textnormal{This will end once \( 2^{j-n} \leq 2^{k + 1} \)}
+
+\-\ \newline 
+\textnormal{This happens when \( n = j - k - 1 \)}
+
 
 
 \end{document}
