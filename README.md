@@ -8,6 +8,8 @@
 
 - **_Homework 3:_** Linearity of Expectations, Sorting, Runtimes
 
+- **_Homework 4:_** Linearity of Expectations, Sorting, Runtimes
+
 ### **Resources**
 
 - [**_latex (stripped package)_**](https://www.tug.org/mactex/morepackages.html)
