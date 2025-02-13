@@ -10,6 +10,8 @@
 
 - **_Homework 4:_** Linearity of Expectations, Sorting, Runtimes
 
+- **_Homework 5:_** No homework during midterm week
+
 ### **Resources**
 
 - [**_latex (stripped package)_**](https://www.tug.org/mactex/morepackages.html)
