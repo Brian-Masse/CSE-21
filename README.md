@@ -12,6 +12,8 @@
 
 - **_Homework 5:_** No homework during midterm week
 
+- **_Homework 6:_** Loop Invariants, Big O, runtimes, Proving Correctness
+
 ### **Resources**
 
 - [**_latex (stripped package)_**](https://www.tug.org/mactex/morepackages.html)
