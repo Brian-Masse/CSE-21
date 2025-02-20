@@ -8,6 +8,14 @@
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+
 \title{CSE 21 HW 5}
 \author{Brian Masse}
 \date{Februrary 19, 2025}
@@ -27,7 +35,7 @@
 
     % MARK: question 1a
     \-\ \newline
-    \it{ a) What is the expected number of entries equal to zero using this sampling method? }
+    \it{ a) Prove that this loop invariant is correct through induction. Use the loop invariant to show that by the end, count is number of intersections between the two sets. }
 
     \-\ \newline
     base case: t = 1
@@ -44,12 +52,16 @@
 
     \begin{itemize}
         \item case 1: \( a[t + 1] \notin (b[1]...b[n])\) 
-        \newline \textnormal{ count (by induction) = number of intersections \((a[1]...a[t + 1])\) and \((b[1]...b[n]) \) }
+        \newline \textnormal{ count (by induction) = number of intersections between \((a[1]...a[t])\) and \((b[1]...b[n]) \) }
 
         \item case 2:  \( a[t + 1] \in (b[1]...b[n])\)
-        \newline \textnormal{ count = count + 1 = (by induction) number of intersections \((a[1]...a[t + 1])\) and \((b[1]...b[n]) \) }
-        
+        \newline \textnormal{ count = count + 1 = (by induction) number of intersections between \((a[1]...a[t])\) and \((b[1]...b[n]) \) }
     \end{itemize} 
+
+    \textnormal{Thus in either case, count is the number of intersections between \((a[1]...a[t])\) and \((b[1]...b[n]) \)}
+
+    \-\ \newline
+    \textnormal{After n iterations, by the loop invariant, count is the number of intersections between \((a[1]...a[n])\) and \((b[1]...b[n]) \), as the algorithm sought to determine.}
 
 
     % MARK: Question 1b
@@ -60,7 +72,7 @@
     \begin{itemize}
         \item \textnormal{Outside Loop = \(\theta(n)\)}
         \item \textnormal{Outside Loop = \(\theta(log_2(n))\)}
-        \item \textnormal{Outside Loop = \(\theta(n \cdot log_2(n))\)}
+        \item \textnormal{maximum runtime (by product rule) = \(\theta(n \cdot log_2(n))\)}
     \end{itemize} 
 
 
@@ -75,31 +87,32 @@
 
     \[ T(n) = 3 \cdot T(\frac{4n}{5}) + O(n) \]
 
-    \textnormal{ \(a = 3\), \( b = \frac{4n}{5} \), \(d = 3\) }
+    \textnormal{ \(a = 3\), \( b = \frac{5}{4} \), \(d = 1\) }
+
+    \-\ \newline
+    by the master theorem\footnote{ This is a slight different corollary of the Master Theorem than the one we used in class. See the end of this PDF for an outline of the specifics of this corollary.  }
 
     \begin{eqnarray}
-        && n^{log_{5/4}(3)} > n^{4} \implies \lim_{n \rightarrow \infty} \frac{n}{n^{4}} = 0 \\ 
-        &\implies& f(n) \in O(n) \in O(n^4) = O(n^{log_b(a) - \epsilon }) \\
+        && n^{log_{5/4}(3)} > n^{4} \implies \lim_{n \rightarrow \infty} \frac{O(n)}{n^{4}} = 0 \\ 
+        &\implies& f(n) = O(n) \in O(n^4) = O(n^{log_b(a) - \epsilon }) \\
         &\implies& T(n) = \theta( n^{log_{5/4}(3)} ) \\
     \end{eqnarray}
 
 
     % MARK: Question 2b
-    \-\ \newline
     \it{ b) Suppose an algorithm solves a problem of size n by recursively calling 9 subproblems each of size \(\frac{n}{4}\). Then the non-recursive part of the algorithm takes \(O(n^{2})\) time. }
 
     \[ T(n) = 9 \cdot T(\frac{n}{4}) + O(n^2) \]
 
-    \textnormal{ \(a = 9\), \( b = 4 \), \(d = 2\) }
+    \textnormal{ \(a = 8\), \( b = 4 \), \(d = 1.5\) }
 
     \begin{eqnarray}
         && n^{log_4(9)} < n^{2} \\ 
-        &\implies& f(n) \in \Omega(n^2) \in \Omega(n^{log_4(9) + \epsilon }) \\
+        &\implies& f(n) = O(n^2) \in \Omega(n^2) \in \Omega(n^{log_4(9) + \epsilon }) \\
         &\implies& T(n) = \theta( n^{log_4(9)} ) \\
     \end{eqnarray}
 
     % MARK: Question 2c
-    \-\ \newline
     \it{ c) Suppose an algorithm solves a problem of size n by recursively calling 8 subproblems each of size \(\frac{n}{4}\). Then the non-recursive part of the algorithm takes \(O(n \sqrt{n})\) time. }
 
     \[ T(n) = 8 \cdot T(\frac{n}{4}) + O(n \cdot \sqrt{n}) \]
@@ -107,8 +120,8 @@
     \textnormal{ \(a = 9\), \( b = 4 \), \(d = 2\) }
 
     \begin{eqnarray}
-        && n^{log_4(8)} < n^{1.5} \\ 
-        &\implies& f(n) = \Theta(n^{1.5}) = \Theta(n^{log_4(8)}) \\
+        && n^{log_4(8)} = n^{1.5} \\ 
+        &\implies& f(n) = O(n^{1.5}) = \Theta(n^{1.5}) = \Theta(n^{log_4(8)}) \\
         &\implies& T(n) = \Theta( n^{1.5} \cdot log(n) ) \\
     \end{eqnarray}
 
@@ -134,7 +147,7 @@
     \-\ \textnormal{ Assume that the loop invariant is true after t iterations. Show that after the t + 1 iteration it is still true. }
 
     \-\ \newline
-    \-\ \textnormal { Take 2 lists from Q (sorted by induction), and merge + sort them in MergeSort, then requeue them. The new list in the queue is thus sorted. All other lists (sorted by induction) are untouched. Thus after (t + 1) iterations, all lists are sorted. }
+    \-\ \textnormal { Take 2 lists from Q, and merge + sort them in MergeSort, then requeue the result. The new list in the queue is sorted from the MergeSort. All other lists (sorted by induction) are untouched. Thus after (t + 1) iterations, all lists are sorted. }
 
     % MARK: Question 3a
     \-\ \newline
@@ -142,7 +155,7 @@
     \it{ b) Use the loop invariant to show that the algorithm is correct. }
 
     \-\ \newline
-    \-\ \textnormal{After each iteration, the Queue shrinks by one (2 lists are pulled out, and sorted and put back in as 1)}
+    \-\ \textnormal{After each iteration, the Queue shrinks by one (2 lists are pulled out, 1 is put back in)}
 
     \-\ \newline
     \-\ \textnormal{thus, after n-1 iterations, there is only 1 list left in the queue, and by the loop invariant, it must be sorted.}
@@ -196,9 +209,7 @@
     \it{ a) Prove Squared correctly returns \(x^2\) for any input \(x \ge 0\) }
 
     \-\ \newline
-    Base Case: \textnormal{show that 0 is correctly squared}
-    \-\ \newline
-    \-\ \(0^2 = 0\)
+    Base Case: \(0^2 = 0\)
 
     \-\ \newline
     Induction Step: \textnormal{ Assume Squared(t - 1) is correct for some \(t \ge 1\). Show that Squared(t) is also correct. }
@@ -234,9 +245,9 @@
     \it{ b) Assuming that \(x = 2^k\) for some integer \(k \ge 0\). In terms of k, how many recursive calls are neccessary to reduce x down to 0 (base case) }
 
     \-\ \newline
-    \textnormal{When the input is even, the next recursive value of x, \(x_i\), = \(x_{i + 1}\). Because the first input, \(2^k\) is even, after each recursive call \(x_i\) will continue to be even: }
-    \[ 2^k \text{  is even} \]
-    \[ 2^{k - 1} \text{  is even} \]
+    \textnormal{Because the first input, \(2^k\) is even, after each call the recursive value \(x_i\) will continue to be even: }
+    \[ x_0 = 2^k \text{  is even} \]
+    \[ x_1 = 2^{k - 1} \text{  is even} \]
     \[ \text{\vdots} \]
 
     \textnormal{After k + 1 iterations, \( x_k = 2^{k - k} = 2^0 = 1 \). Once \(x_i = 1\), which is odd, the algorithm computes \(x_{i + 1} = x_{i} - 1 = 0 \)}
@@ -259,6 +270,20 @@
 
     \-\ \newline
     \textnormal{ Thus the algorithm takes 2k + 1 executions to get to 0. (2k recursive calls) }
+
+    \newpage
+    
+    Explanation of the Specific corollary of the Master Theorem used in Question 2:
+
+    \[ T(n) = a \cdot T(n/b) + f(n) \]
+
+    where T(n) has the following asymptotic bounds:
+
+    \begin{itemize}
+        \item \(f(n) = O( n^{log_b(a) - \epsilon} ) \implies T(n) = \Theta(n^{log_b(a)})  \)
+        \item \(f(n) = \Theta( n^{log_b(a) }) \implies T(n) = \Theta(n^{log_b(a)} \cdot log(n))  \)
+        \item \(f(n) = \Omega( n^{log_b(a) + \epsilon} ) \implies T(n) = \Theta(f(n)) \)
+    \end{itemize} 
 
 
 
