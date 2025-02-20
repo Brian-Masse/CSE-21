@@ -6,6 +6,8 @@
 \usepackage{amsmath}
 \usepackage[a4paper, total={6in, 9in}]{geometry}
 
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
 \title{CSE 21 HW 5}
 \author{Brian Masse}
 \date{Februrary 19, 2025}
@@ -15,4 +17,251 @@
 \maketitle
 \newpage
 
+\begin{enumerate}
+
+    % MARK: Question 1
+    \item
+    \bf{Consider the algorithm IntersectCount that takes two sorted lists of distinct
+    integers $a[1],\dots,a[n]$ and $b[1],\dots,b[n]$ and returns the number of
+    elements they have in common (the cardinality of their intersection:)}
+
+    % MARK: question 1a
+    \-\ \newline
+    \it{ a) What is the expected number of entries equal to zero using this sampling method? }
+
+    \-\ \newline
+    base case: t = 1
+
+    \begin{itemize}
+        \item case 1: count = 1 if \(a[1] \in ( b[1]...b[n] ) \)
+
+        \item case 2: count = 0 if \(a[1] \notin ( b[1]...b[n] ) \)
+        
+    \end{itemize} 
+
+    \-\ \newline
+    induction step: for t \( > \) 1: \textnormal{assume the loop invariant holds. Show that it also holds for t + 1 }
+
+    \begin{itemize}
+        \item case 1: \( a[t + 1] \notin (b[1]...b[n])\) 
+        \newline \textnormal{ count (by induction) = number of intersections \((a[1]...a[t + 1])\) and \((b[1]...b[n]) \) }
+
+        \item case 2:  \( a[t + 1] \in (b[1]...b[n])\)
+        \newline \textnormal{ count = count + 1 = (by induction) number of intersections \((a[1]...a[t + 1])\) and \((b[1]...b[n]) \) }
+        
+    \end{itemize} 
+
+
+    % MARK: Question 1b
+    \-\ \newline
+    \-\ \newline
+    \it{ b) Do a runtime analysis and give a Big Theta bound for the runtime }
+
+    \begin{itemize}
+        \item \textnormal{Outside Loop = \(\theta(n)\)}
+        \item \textnormal{Outside Loop = \(\theta(log_2(n))\)}
+        \item \textnormal{Outside Loop = \(\theta(n \cdot log_2(n))\)}
+    \end{itemize} 
+
+
+    % MARK: Question 2
+    \newpage
+    \item 
+    \bf{For each situation below, first give the recurrence for the runtime of the algorithm. Then use the Master Theorem, if possible, and give the values for the parameters a b and d, and the O bound.}
+
+    % MARK: Question 2a
+    \-\ \newline
+    \it{ a) Suppose an algorithm solves a problem of size n by recursively calling 3 subproblems each of size \(\frac{4n}{5}\). Then the non-recursive part of the algorithm takes O(n) time. }
+
+    \[ T(n) = 3 \cdot T(\frac{4n}{5}) + O(n) \]
+
+    \textnormal{ \(a = 3\), \( b = \frac{4n}{5} \), \(d = 3\) }
+
+    \begin{eqnarray}
+        && n^{log_{5/4}(3)} > n^{4} \implies \lim_{n \rightarrow \infty} \frac{n}{n^{4}} = 0 \\ 
+        &\implies& f(n) \in O(n) \in O(n^4) = O(n^{log_b(a) - \epsilon }) \\
+        &\implies& T(n) = \theta( n^{log_{5/4}(3)} ) \\
+    \end{eqnarray}
+
+
+    % MARK: Question 2b
+    \-\ \newline
+    \it{ b) Suppose an algorithm solves a problem of size n by recursively calling 9 subproblems each of size \(\frac{n}{4}\). Then the non-recursive part of the algorithm takes \(O(n^{2})\) time. }
+
+    \[ T(n) = 9 \cdot T(\frac{n}{4}) + O(n^2) \]
+
+    \textnormal{ \(a = 9\), \( b = 4 \), \(d = 2\) }
+
+    \begin{eqnarray}
+        && n^{log_4(9)} < n^{2} \\ 
+        &\implies& f(n) \in \Omega(n^2) \in \Omega(n^{log_4(9) + \epsilon }) \\
+        &\implies& T(n) = \theta( n^{log_4(9)} ) \\
+    \end{eqnarray}
+
+    % MARK: Question 2c
+    \-\ \newline
+    \it{ c) Suppose an algorithm solves a problem of size n by recursively calling 8 subproblems each of size \(\frac{n}{4}\). Then the non-recursive part of the algorithm takes \(O(n \sqrt{n})\) time. }
+
+    \[ T(n) = 8 \cdot T(\frac{n}{4}) + O(n \cdot \sqrt{n}) \]
+
+    \textnormal{ \(a = 9\), \( b = 4 \), \(d = 2\) }
+
+    \begin{eqnarray}
+        && n^{log_4(8)} < n^{1.5} \\ 
+        &\implies& f(n) = \Theta(n^{1.5}) = \Theta(n^{log_4(8)}) \\
+        &\implies& T(n) = \Theta( n^{1.5} \cdot log(n) ) \\
+    \end{eqnarray}
+
+
+    % MARK: Question 3
+    \newpage
+    \item 
+    \bf{ Consider the following sorting algorithm that takes a list of integers as an input and outputs a sorted list of those elements. }
+    \-\ \newline
+    \-\ \newline
+    \textnormal{Consider the loop invariant:} \it{After each iteration, every list in Q is sorted}
+
+    % MARK: Question 3a
+    \-\ \newline
+    \it{ a) Prove this loop invarian using induction. }
+
+    \-\ \newline
+    \-\ - base case: 
+    \-\ \textnormal{ After 0 iterations, Q is a Queue of single-element lists, so each list is naturally sorted. }
+
+    \-\ \newline
+    \-\ - Induction Step:
+    \-\ \textnormal{ Assume that the loop invariant is true after t iterations. Show that after the t + 1 iteration it is still true. }
+
+    \-\ \newline
+    \-\ \textnormal { Take 2 lists from Q (sorted by induction), and merge + sort them in MergeSort, then requeue them. The new list in the queue is thus sorted. All other lists (sorted by induction) are untouched. Thus after (t + 1) iterations, all lists are sorted. }
+
+    % MARK: Question 3a
+    \-\ \newline
+    \-\ \newline
+    \it{ b) Use the loop invariant to show that the algorithm is correct. }
+
+    \-\ \newline
+    \-\ \textnormal{After each iteration, the Queue shrinks by one (2 lists are pulled out, and sorted and put back in as 1)}
+
+    \-\ \newline
+    \-\ \textnormal{thus, after n-1 iterations, there is only 1 list left in the queue, and by the loop invariant, it must be sorted.}
+
+     % MARK: Question 3c
+     \-\ \newline
+     \-\ \newline
+     \it{ c) Use the runtime method we learned in class to show that this algorithm runs in \(O(n^{2})\) time. }
+
+     \-\ \newline
+     \-\ \textnormal{ Outer loop runs in O(n), merge sort runs, at worst, in O(n) }
+     \-\ \newline
+     \-\ \newline
+     \-\ \textnormal{ so by the product rule, the algorithm is upper bounded by \(O(n^{2}) = O(n * n) \) }
+
+     % MARK: Question 3d
+     \-\ \newline
+     \-\ \newline
+     \it{ d) Show that \(O(n^2)\) is not a tight bound by doing a more careful analysis }
+
+     \begin{eqnarray}
+        T(n) &\le& \sum_{k=1}^{\ceil{log(n)}} \frac{n}{2^k} \cdot 2^k \\
+        &=& \sum_{k=1}^{\ceil{log(n)}} n \\
+        &=& n \cdot \ceil{log(n)} \\
+        &\implies& \lim_{n \rightarrow \infty} \frac{n \cdot \ceil{log(n)}}{n^2} = 0
+    \end{eqnarray}
+
+    \textnormal{Thus \(O(n^2)\) is not a tight bound ( \(T(n) \notin \Theta(n^2)\) ), since it can be shown \( \lim_{n \rightarrow \infty} \frac{T(n)}{n^2} = 0 \)}
+
+    \-\ \newline
+    Justification:
+    \begin{itemize}
+        \item \textnormal{\( \frac{n}{2^k}\) : Max number of occurrences of merges with \(2^{k}\) elements during Queue Sort operations.
+        \-\ \newline
+        \-\ \newline
+        \emph{Consider the example with n = 7. There are 3 \(< 3.5 = 7 / 2^1\) merges with 2 elements. There are 2 merges with 3 or 4 elements. There is 1 merge with 7 elements. }}
+        \-\ \newline
+        \-\ \newline
+        Likewise, when n = 8, there are 4 merges with 2 elements, 2 merges with 4 elements, and 1 merge with 8 elements. 
+
+        \item \textnormal{\( 2^k\) : Run time for merge sort with \(i + j = 2^k\) elements}
+    \end{itemize} 
+
+
+    % MARK: Question 4
+    \newpage
+    \item 
+    \bf{ Given an integer \(x \ge 0\) this algorithm returns the value \(x^2\) }
+
+    \-\ \newline
+    \it{ a) Prove Squared correctly returns \(x^2\) for any input \(x \ge 0\) }
+
+    \-\ \newline
+    Base Case: \textnormal{show that 0 is correctly squared}
+    \-\ \newline
+    \-\ \(0^2 = 0\)
+
+    \-\ \newline
+    Induction Step: \textnormal{ Assume Squared(t - 1) is correct for some \(t \ge 1\). Show that Squared(t) is also correct. }
+
+    Case 1: t is odd:
+    \begin{eqnarray}
+        (t)^2 &=& (t^2 -2t + 1) + 2t - 1 \\
+        &=& (t - 1)^2 + 2t - 1 \\
+        &=& Squared(t - 1) + 2t - 1
+    \end{eqnarray}
+
+    Thus when t is odd, the algorithm correctly returns \(t^2\)
+
+    \-\ \newline
+    Case 2: t is even:
+    \-\ \newline
+    \-\ note t = 2k for some \(k \in \mathbb{Z}\)
+
+    \begin{eqnarray}
+        (t)^2 &=& (2k)^2 \\
+        &=& 4k^2 = 4\left(\frac{t}{2}\right)^2 \\
+        &=& 4 \cdot Squared\left(\frac{t}{2}\right)
+    \end{eqnarray}
+
+    Thus when t is even, the algorithm correctly returns \(t^2\)
+
+    \-\ \newline
+    Thus for all \(t \ge 0\), the algorithm correctly returns \(t^2\)
+
+    % MARK: Question 4b
+    \-\ \newline
+    \-\ \newline
+    \it{ b) Assuming that \(x = 2^k\) for some integer \(k \ge 0\). In terms of k, how many recursive calls are neccessary to reduce x down to 0 (base case) }
+
+    \-\ \newline
+    \textnormal{When the input is even, the next recursive value of x, \(x_i\), = \(x_{i + 1}\). Because the first input, \(2^k\) is even, after each recursive call \(x_i\) will continue to be even: }
+    \[ 2^k \text{  is even} \]
+    \[ 2^{k - 1} \text{  is even} \]
+    \[ \text{\vdots} \]
+
+    \textnormal{After k + 1 iterations, \( x_k = 2^{k - k} = 2^0 = 1 \). Once \(x_i = 1\), which is odd, the algorithm computes \(x_{i + 1} = x_{i} - 1 = 0 \)}
+
+    \-\ \newline
+    \-\ \newline
+    \textnormal{Thus the algorithm takes k + 2 executions to get to 0. (k + 1 recursive calls)}
+
+
+    % MARK: Question 4c
+    \-\ \newline
+    \-\ \newline
+    \it{ c) Assuming that \(x = 2^k - 1\) for some integer \(k \ge 0\). In terms of k, how many recursive calls are neccessary to reduce x down to 0 (base case) }
+
+    \-\ \newline
+    \textnormal{ \(x_0 = 2^k - 1\) is odd, thus the first recursive call gets value \(x_1 = 2^k - 1 - 1\), which is even. Because \(x_1\) is even, \( x_2 = \frac{2^k - 2}{2} = 2^{k-1} - 1 \). This restarts the problem with \( x = 2^{k - 1} - 1  \) }
+
+    \-\ \newline
+    \textnormal{ This process repeats k times until \( x_{2k} = 2^{k - k} - 1 = 0\)}
+
+    \-\ \newline
+    \textnormal{ Thus the algorithm takes 2k + 1 executions to get to 0. (2k recursive calls) }
+
+
+
+
+\end{enumerate}
 \end{document}
