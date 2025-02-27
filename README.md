@@ -10,9 +10,9 @@
 
 - **_Homework 4:_** Linearity of Expectations, Sorting, Runtimes
 
-- **_Homework 5:_** No homework during midterm week
+- **_Homework 5:_** Loop Invariants, Big O, runtimes, Proving Correctness
 
-- **_Homework 6:_** Loop Invariants, Big O, runtimes, Proving Correctness
+- **_Homework 6:_** Recursion, Unravelling, Algorithm Runtimes.
 
 ### **Resources**
 
