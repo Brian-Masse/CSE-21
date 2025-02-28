@@ -1,0 +1,231 @@
+\documentclass[12pt, letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[a4paper, total={6in, 9in}]{geometry}
+
+\title{CSE 21 HW 6}
+\author{Brian Masse}
+\date{Februrary 26, 2025}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+% MARK: Problem 1a
+\bf{ 1. Consider the Recurance Relation: }
+
+\[ J(0) = 0 \]
+\[ J(0) = 2J(n - 1) + 2^{n-1} \textnormal{ for } n \ge 1 \]
+
+\-\ \newline
+\-\ \bf{ Use Unravelling to solve for a closed form. }
+
+\begin{eqnarray*}
+    &\textnormal{1)  }& J(n) = 2J(n - 1) + 2^{n-1} \\
+    &\textnormal{2)  }& J(n) = 2^2 \cdot J(n - 2) + 2^{n-1} + 2^{n-1}\\
+    &\textnormal{  }& \vdots \\
+    &\textnormal{k)  }& J(n) = 2^k \cdot J(n - k) + k \cdot + 2^{n-1}\\
+    &\textnormal{  }& \vdots \\
+    &\textnormal{n)  }& J(n) = n \cdot 2^{n - 1}\\
+\end{eqnarray*}
+
+% MARK: Problem 2a
+\newpage
+\bf{ 2. Recall the recurrence relation for the number of domino tilings of a \(2\) x \(n\) grid: }
+\[  DT_1(n) = DT_1(n - 1) + DT_1(n - 2), DT_1(0) = 1, DT_1(1) = 1 \]
+
+\-\ \newline
+\it{ a) Verify the following recurrence by giving a table of values for n = 1, 2, 3, 4, 5 }
+
+\[ DT_2(2n) = DT_2(n^2) + DT_2(n - 1)^2 + DT_2(n - 1)^2 \textnormal{ for all } n \ge 1\]
+
+\-\ \newline
+{
+\centering
+\begin{tabular}{ | l | l | l | r | }
+    \hline			
+    n & \(DT_2(2n)\) & \(DT_1(n)\) & \(DT_1(2n)\) \\ 
+    \hline
+    1 & 1 + 1 = 2       & 1             & 1 + 1 = 2 \\
+    2 & 4 + 1 = 5       & 1 + 1 = 2     & 3 + 2 = 5 \\ 
+    3 & 9 + 4 = 13      & 3 + 1 = 3     & 8 + 5 = 13 \\ 
+    4 & 25 + 9 = 34     & 3 + 2 = 5     & 13 + 21 = 34 \\ 
+    5 & 64 + 25 = 89    & 5 + 3 = 8     & 34 + 55 = 89 \\
+    \hline  
+  \end{tabular}\par
+}
+
+\-\ \newline
+\-\ \newline
+% MARK: Problem 2b
+\it{ b) Give an arugment that proves the recurrence above. }
+\-\ \newline
+\-\ \newline
+\textnormal{There are two disjoint cases: either the middle has two horizontal dominos or it does not.}
+
+\-\ \newline
+\textnormal{Case 1: The middle has two horizontal dominos. On either side of this horizontal stack of dominos there is a \(2\) x \((n - 1)\) grid. The total number of domino arrangements on these grids is \(DT(n - 1) * DT(n - 1) = DT(n-1)^2 \)}
+
+\-\ \newline
+\textnormal{ Case 2: The middle does not have two horizontal dominos. In this case, there are simply two grids of 2 x \(n\) on either side of the middle. The total number of domino arrangements on these grids is \(DT(n) * DT(n) = DT(n)^2  \).  }
+\textnormal{ Note: This does not count the case where the middle has 2 horizontal dominos, since that would require horizontal dominos to stick out from the ends of the 2 x n grids, a possibility not counted by \(DT(n)\). Thus, the two cases are truly disjoint }
+
+\-\ \newline
+\textnormal{ Thus, the total combinations of domino arrangements is the sum of the two cases: \( DT(2n) = DT(n)^2 + DT(n - 1)^2\) }
+
+
+
+% MARK: Problem 3a
+\newpage
+\bf{ 3. Counting ternary strings}
+
+\-\ \newline
+\-\ \it{ a) Let \(A(n)\) be the number of ternary strings of length n that avoid the substring 00. }
+\-\ \newline
+\-\ \it{ i) Find a recurrence relation for A(n) and explain why A(n) satisfies the recurrence. }
+\-\ \newline
+
+\begin{eqnarray*}
+|\{\textnormal{All ternary strings without 00}\}| &=& |\{ \textnormal{Strings starting with 1} \}| \\
+&+& |\{ \textnormal{Strings starting with 2} \}| \\
+&+& |\{ \textnormal{Strings starting with 01} \}| \\
+&+& |\{ \textnormal{Strings starting with 02} \}| \\
+\end{eqnarray*}
+
+\textnormal{If the string starts with 1 or 2 then it will not start with 00, thus you recursively check the remainder of the string. If the string starts with 0, but not 00, then the string does not start with 00, and thus you recursively check the rest of the string. }
+
+\begin{eqnarray*}
+    A(n) &=& A(n - 1) + A(n - 1) + A(n - 2) + A(n - 2) \\
+    &=& 2 \cdot A(n - 1) + 2 \cdot  A(n-2) \\
+    \\
+    n \ge 2 \\
+    A(0) = 1, A(1) = 3
+\end{eqnarray*}
+
+
+
+\-\ \newline
+\it{ ii) Use the characteristic polynomial to find the Big-Theta bound for the sequence A(n) }
+
+\begin{eqnarray*}
+    Ar^n &=& 2Ar^{n-1} + 2Ar^{n-2} \\
+    0 &=& r^2 - 2r - 2 \\
+    \\
+    r &=& \frac{ 2 \pm \sqrt{4 + 8} }{2} \\
+    &=& 1 \pm \sqrt{3} \\
+    &\approx& 2.732
+\end{eqnarray*}
+
+\textnormal{\( A(n) = \Theta(2.732^n) \)}
+
+% MARK: Problem 3b
+\-\ \newline
+\-\ \newline
+\-\ \it{ b) Let \(B(n)\) be the number of ternary strings of length n that avoid the substrings 11, 12, 21, and 22. }
+\-\ \newline
+\-\ \it{ i) Find a recurrence relation for B(n) and explain why B(n) satisfies the recurrence. }
+\-\ \newline
+
+\begin{eqnarray*}
+    |\{\textnormal{All strings}\}| &=& |\{ \textnormal{Strings starting with 0} \}| \\
+    &+& |\{ \textnormal{Strings starting with 10} \}| \\
+    &+& |\{ \textnormal{Strings starting with 20} \}| \\
+    \end{eqnarray*}
+
+\textnormal{ If the string does not start with one of target substrings, then recursively check the rest of the string. }
+
+\begin{eqnarray*}
+    B(n) &=& B(n - 1) + 2B(n - 2) \\
+    \\ n \ge 2 \\
+    B(0) = 1, B(1) = 3
+\end{eqnarray*}
+
+\-\ \newline
+\it{ ii) Use the characteristic polynomial to find the Big-Theta bound for the sequence B(n) }
+
+\begin{eqnarray*}
+    Ar^n &=& Ar^{n-1} + 2Ar^{n-2} \\
+    0 &=& r^2 - r - 2 \\
+    \\
+    r &=& \frac{ 1 \pm \sqrt{1 + 8} }{2} \\
+    &=& 2, -1
+\end{eqnarray*}
+
+\textnormal{\( B(n) = \Theta(2^n) \)}
+
+
+
+% MARK: Problem 4a
+\newpage
+\bf{ 4. The Sierpinski Carpet is a well-known fractal. To produce the Sierpinski Carpet, one must construct a sequence of intermediate steps: \(C(1), C(2), C(3)\) }
+
+\-\ \newline
+\-\ \it{ a) Let S(n) be the number of white squares in C(n). Formulate a recurance relation for S(n) }
+
+\begin{eqnarray*}
+S(n) &=& 8(S(n - 1) - S(n - 2)) + S(n - 1) \\
+&=& 9S(n - 1) - 8S(n - 2)
+\end{eqnarray*}
+
+\textnormal{ S(1) = 1, S(2) = 9 } 
+
+\-\ \newline
+\textnormal{ \(S(n - 1) - S(n - 2)\) represents all the white squares introduced in the previous iteration. Each of these white square is surrounded by 8 blue tiles that will produce 1 new white square in the current iteration, hence the times 8. Finally add back the white squares from the previous iteration.  }
+
+% MARK: Problem 4b
+\-\ \newline
+\-\ \it{ b) Solve for the closed-form of S(n) }
+
+\-\ \newline
+\textnormal{ Using the guess and check method: assume the closed form is \(\frac{8^n - 1}{7}\). (I used OEIS.org to make this guess) }
+
+\-\ \newline
+\textnormal{Proof by Induction:}
+
+\-\ \it{Base Case:}
+\begin{itemize}
+    \item S(1) = \( \frac{7}{7} = 1 \)
+    \item S(2) = \( \frac{63}{7} = 9 \)
+\end{itemize} 
+
+\-\ \it{Induction Step: \textnormal{Assume that for some k \(\ge\) 2, \(S(k) = \frac{8^k - 1}{7}\). Show that this holds for k + 1}}
+
+\begin{eqnarray*}
+    S(k + 1) &=& 9S(k) - 8S(k - 1) \\
+    &=& 9 \left( \frac{8^k -1}{7} \right) - 8\left( \frac{8^{k -1} - 1}{7} \right) \\
+    &=& \frac{8^{k + 1} - 1}{7} \\
+\end{eqnarray*}
+
+% MARK: Problem 4c
+\-\ \newline
+\-\ \it{ c) Let A(n) be the total area of the blue squares of C(n). Formulate a recurrence relation for A(n). }
+
+\begin{eqnarray*}
+    A(n) = \frac{8}{9} A(n - 1) \\
+    \\
+    A(1) = 8/9, A(0) = 1
+\end{eqnarray*}
+
+\textnormal{ Given any area A(k) of blue squares, the next iteration will subdivide all those squares into 9 equal sized portions. 8 of those continue to be blue, 1 turns white. Thus the total area of the blue squares will be \(\frac{8}{9} A(k) \) }
+
+% MARK: Problem 4d
+\-\ \newline
+\-\ \it{ d) Solve for the closed form of A(n) }
+
+\-\ \newline
+\textnormal{ By Unravelling: }
+
+\begin{eqnarray*}
+    &\textnormal{1) }& A(n) = \frac{8}{9} A(n - 1) \\
+    &\textnormal{2) }& A(n) = \left(\frac{8}{9}\right)^2 A(n - 2) \\
+    &\textnormal{  }& \vdots \\
+    &\textnormal{k) }& A(n) = \left(\frac{8}{9}\right)^k A(n - k) \\
+    &\textnormal{  }& \vdots \\
+    &\textnormal{n) }& A(n) = \left(\frac{8}{9}\right)^n \\
+\end{eqnarray*}
+
+\end{document}
