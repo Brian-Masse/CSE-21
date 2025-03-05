@@ -248,12 +248,73 @@ T(n) = 1113(1) + 104(5) + 63(5) + 67(5) + 77(5) + 49(6) + 54(5) + 73(5) + 103(5)
 \-\ \it{ b) Develop an encoding strategy and encode the path given in the example }
 
 \-\ \newline
-\textnormal{Translate the path to a fixed-density binary string. Specifically, a length 13 binary strings with 6 1s, where 1 represents moving to the right and 0 represent moving up.}
+\textnormal{ Using the ranking / unranking algorithm proposed in class can store all possible path sequences in 13 bits.  }
+\-\ \newline
+\-\ \newline
+\textnormal{ First translate the path into a fixed length binary string of length 15 with 6 1s, where 1 represents a movement to the right. Instead of encoding this 15-bit string, list out each path in lexicographic order, and assign each an index. Encode this index.  }
+\-\ \newline
+\-\ \newline
+\textnormal{ To encode this 15 bit binary string, use the ranking algorithm. }
+\[\textnormal{rank: Path} \rightarrow \textnormal{index} \]
+\[ Rank(x, n, k) = \begin{cases} 
+      Rank( x', n-1, k ) & \textnormal{ if x starts with 0} \\
+      Rank( x', n-1, k ) + {n - 1 \choose k} & \textnormal{ if x starts with 1}
+   \end{cases}
+\]
 
-\[ \textnormal{path} \implies 1 1110 0001 0001 00 \]
+\-\ \newline
+\textnormal{To decode this 15 bit binary string, use the deranking algorithm.}
+\[ \textnormal{Derank: Index} \rightarrow \textnormal{Path} \]
+\[ Derank(x, n, k) = \begin{cases}
+    0 \circ Derank(d, n-1, k) & \textnormal{ if d \(< {n - 1 \choose k}\)} \\
+    1 \circ Derank(d - {n-1 \choose k}, n-1, k-1) & \textnormal{else}
+\end{cases}
+\]
+
+
+
 
 % MARK: problem 4c
 \-\ \newline
 \-\ \it{ c) Use your encoding strategy to decode the following string: 0 1010 1100 1100 }
+
+\-\ \newline
+\[ \textnormal{(0 1010 1100 1100)}_2 = (2764)_{10} \]
+
+\textnormal{Using the Derank Algorithm:}
+\[ Derank( 2764, 15, 6 ) = \textnormal{ 011 0100 1010 0010 } \]
+
+{
+\centering 
+\begin{tabular}{ | l | l | l | l | r | }
+    \hline
+    Position & d & n & k & Decoded Binary Value \\		
+    \hline
+    \textnormal{1} & \textnormal{2764} & \textnormal{15} & \textnormal{6} & \textnormal{0} \\ 
+    \textnormal{2} & \textnormal{2764} & \textnormal{14} & \textnormal{6} & \textnormal{1} \\ 
+    \textnormal{3} & \textnormal{1084} & \textnormal{13} & \textnormal{5} & \textnormal{1} \\ 
+    \textnormal{4} & \textnormal{256} & \textnormal{12} & \textnormal{4} & \textnormal{0} \\ 
+    \textnormal{5} & \textnormal{256} & \textnormal{11} & \textnormal{4} & \textnormal{1} \\ 
+    \textnormal{6} & \textnormal{46} & \textnormal{10} & \textnormal{3} & \textnormal{0} \\ 
+    \textnormal{7} & \textnormal{46} & \textnormal{9} & \textnormal{3} & \textnormal{0} \\ 
+    \textnormal{8} & \textnormal{46} & \textnormal{8} & \textnormal{3} & \textnormal{1} \\ 
+    \textnormal{9} & \textnormal{11} & \textnormal{7} & \textnormal{2} & \textnormal{0} \\ 
+    \textnormal{10} & \textnormal{11} & \textnormal{6} & \textnormal{2} & \textnormal{1} \\ 
+    \textnormal{11} & \textnormal{1} & \textnormal{5} & \textnormal{1} & \textnormal{0} \\ 
+    \textnormal{12} & \textnormal{1} & \textnormal{4} & \textnormal{1} & \textnormal{0} \\ 
+    \textnormal{13} & \textnormal{1} & \textnormal{3} & \textnormal{1} & \textnormal{0} \\ 
+    \textnormal{14} & \textnormal{1} & \textnormal{2} & \textnormal{1} & \textnormal{1} \\ 
+    \textnormal{15} & \textnormal{0} & \textnormal{1} & \textnormal{0} & \textnormal{0} \\ 
+    \hline  
+  \end{tabular}\par
+}
+
+\-\ \newline
+\textnormal{Translated into a path}
+\-\ \newline
+\begin{center}
+  \includegraphics[width=0.5\textwidth]{graph2.jpeg}
+\end{center}
+
 
 \end{document}
