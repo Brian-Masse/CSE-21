@@ -24,6 +24,9 @@
 
 \-\ \newline
 \-\ \it{ a) (for n \(\ge\) 1), How many slow-growing sequence of length n are there? }
+\-\ \newline
+\-\ \newline
+\textnormal{ Creating a slow growing sequence of length n from a slow growing sequence of length n - 1, where \(a_n\) is the last element in the n - 1 sequence, there are two two options: \(a_n\) and \(a_n + 1\). Thus,}
 
 \[A(n) = 2 \cdot A(n - 1), A(1) = 1\]
 \begin{eqnarray*}
@@ -34,6 +37,8 @@
 &\textnormal{  }& \vdots \\
 &n - 1)& \textnormal{ } A(n) = 2^{n - 1} \\
 \end{eqnarray*}
+
+\textnormal{ So, there are \(2^{n- 1}\) slow-growing sequences of length n. }
 
 % MARK: 1b
 \-\ \newline
@@ -89,7 +94,7 @@ n &=& \ceil{ log_2( 2^{n - 1}) } \\
 \bf{ 2. Image files can be encoded using binary strings. In the most simple version, you can encode an \(n x m\) black and white image using \(nm\) bits with black corresponding to 0 and white corresopnding to 1. }
 \-\ \newline
 \-\ \newline
-\bf{ We can use hexadecimal to encode each of the cunks of 4 pixels into a single hexadecimal character. }
+\bf{ We can use hexadecimal to encode each of the chunks of 4 pixels into a single hexadecimal character. }
 
 \-\ \newline
 \-\ \it{ a) How many bits are required to encode this image by encoding each pixel with 1 bit? }
@@ -112,7 +117,7 @@ n &=& \ceil{ log_2( 2^{n - 1}) } \\
 
 % MARK: 2c
 \-\ \newline
-\-\ \it{ c) Huffman encoding is actually used in image compression. What we cand o is compute the frequency table of the hexadecimal chracters and build a Huffman code based on that. Then encode the hexadecimal string using the Huffman code. Here is the frequncy table for this particular image:}
+\-\ \it{ c) Huffman encoding is actually used in image compression. What we can do is compute the frequency table of the hexadecimal chracters and build a Huffman code based on that. Then encode the hexadecimal string using the Huffman code. Here is the frequncy table for this particular image:}
 
 \-\ \newline
 {
@@ -165,7 +170,8 @@ n &=& \ceil{ log_2( 2^{n - 1}) } \\
 
 \begin{eqnarray*}
 T(n) = 1113(1) + 104(5) + 63(5) + 67(5) + 77(5) + 49(6) + 54(5) + 73(5) + 103(5) \\
-+ 39(6) + 32(6) + 70(5) + 47(6) + 82(5) + 83(5) + 248(3)
++ 39(6) + 32(6) + 70(5) + 47(6) + 82(5) + 83(5) + 248(3) \\
+= 6739
 \end{eqnarray*}
 
 \end{itemize}
@@ -184,6 +190,10 @@ T(n) = 1113(1) + 104(5) + 63(5) + 67(5) + 77(5) + 49(6) + 54(5) + 73(5) + 103(5)
 % MARK: 3b
 \-\ \newline
 \-\ \it{ b) Develop a fixed length character-by-character encoding for this alphabet using the number of bits from the previous part and use it to encode / decode the following strings }
+\-\ \newline
+\-\ \newline
+\textnormal{ Assign each letter in the alphabet a number, starting with A=1 and going to Z=26. Then, for each character in a string, encode its corresponding value with 5 bits.  }
+
 \begin{itemize}
 \item Encode: "MATH" 
 \(\implies (13)(1)(20)(8) \implies\) 01101 00001 10100 01000
@@ -209,23 +219,27 @@ T(n) = 1113(1) + 104(5) + 63(5) + 67(5) + 77(5) + 49(6) + 54(5) + 73(5) + 103(5)
 \-\ \newline
 \-\ \newline
 \-\ \it{ d) Develop a fixed length encoding for 4 letter strings using the number of bits from the previous part and use it to encode / decode the following strings: }
+\-\ \newline \newline
+\textnormal{ Assign each letter in the alphabet a number, starting with A=1 and going to Z=26. } \newline \newline
+\textnormal{To encode, convert the 4-character string into a base-26 number. (Replace each letter with its corresponding number, then multiply it by a power of 26 depending on its position in the string). Convert this number into base 10. Encode the result.} \newline \newline
+\textnormal{To decode, convert the binary string into a base 10 number, and that into a base 26 number. The coefficients in front of the powers of 26 correspond to the characters in the string. } \newline
+
 \begin{itemize} 
 \item Encode: "MATH"
-\( \implies (13 \cdot 26^3 + 1 \cdot 26^2 + 20 \cdot 26 + 8) \implies 229692 \)
-
+\( \implies (13 \cdot 26^3 + 1 \cdot 26^2 + 20 \cdot 26 + 8)_{26} \implies 229692 \) \newline
 \( \implies \) 011 1000 0001 0011 1100 \newline
 
-
 \item Encode: "BYTE"
-\( \implies (2\cdot26^3 + 25\cdot 26^2 + 20\cdot 26 + 5) \implies 52577\)
-
+\( \implies (2\cdot26^3 + 25\cdot 26^2 + 20\cdot 26 + 5)_{26} \implies 52577\) \newline
 \( \implies \) 000 1100 1101 0110 0001 \newline
 
 \item Decode: 100 1111 1010 1001 0101
-\( \implies 326293 \implies RNQS \)
+\( \implies (326293)_{10} \) \newline
+\( \implies (18\cdot26^3 + 14\cdot26^2 + 17\cdot26 + 19)_{26} = RNQS \) \newline
 
 \item Decode: 100 1011 0101 1001 1111
-\( \implies 308639 \implies QNNS \)
+\( \implies (308639)_{10} \) \newline
+\( \implies (17\cdot26^3 + 14\cdot26^2 + 14\cdot26 + 19)_{26} = QNNS \) \newline
 
 \end{itemize}
 
@@ -238,7 +252,7 @@ T(n) = 1113(1) + 104(5) + 63(5) + 67(5) + 77(5) + 49(6) + 54(5) + 73(5) + 103(5)
 \-\ \it{ a) What is the minimum number of bits necessary to encode these paths with a fixed length encoding? }
 
 \-\ \newline
-\textnormal{There are \(6 + 9 \choose 6\) = \(15 \choose 6\) = \( 5005 \) number of paths from the bottom left to the top right, where 1s represent moving to the right.  }
+\textnormal{There are \(6 + 9 \choose 6\) = \(15 \choose 6\) = \( 5005 \) number of paths from the bottom left to the top right.  }
 
 \[ n = \ceil{ log_2{5005} } = 13 \]
 
@@ -254,7 +268,7 @@ T(n) = 1113(1) + 104(5) + 63(5) + 67(5) + 77(5) + 49(6) + 54(5) + 73(5) + 103(5)
 \textnormal{ First translate the path into a fixed length binary string of length 15 with 6 1s, where 1 represents a movement to the right. Instead of encoding this 15-bit string, list out each path in lexicographic order, and assign each an index. Encode this index.  }
 \-\ \newline
 \-\ \newline
-\textnormal{ To encode this 15 bit binary string, use the ranking algorithm. }
+\textnormal{ To determine the index from a 15 bit binary string, use the ranking algorithm. }
 \[\textnormal{rank: Path} \rightarrow \textnormal{index} \]
 \[ Rank(x, n, k) = \begin{cases} 
       Rank( x', n-1, k ) & \textnormal{ if x starts with 0} \\
@@ -263,6 +277,10 @@ T(n) = 1113(1) + 104(5) + 63(5) + 67(5) + 77(5) + 49(6) + 54(5) + 73(5) + 103(5)
 \]
 
 \-\ \newline
+\-\ Where x' is the current path minus the first character.
+
+
+\-\ \newline \newline
 \textnormal{To decode this 15 bit binary string, use the deranking algorithm.}
 \[ \textnormal{Derank: Index} \rightarrow \textnormal{Path} \]
 \[ Derank(x, n, k) = \begin{cases}
@@ -271,14 +289,20 @@ T(n) = 1113(1) + 104(5) + 63(5) + 67(5) + 77(5) + 49(6) + 54(5) + 73(5) + 103(5)
 \end{cases}
 \]
 
-
+\-\ \newline \newline
+\textnormal{Using this algorithm to encode the example:}
+\[ Path \implies \textnormal{111 1000 0100 0100}, n = 15, k = 6 \]
+\begin{eqnarray*}
+&\implies& {14 \choose 6} + {13 \choose 5} + {12 \choose 4} + {11 \choose 3} + {6 \choose 2} + {2 \choose 1} \\
+&=& (4967)_{10} \\
+&=& \textnormal{1 0011 0110 0111} \\
+\end{eqnarray*}
 
 
 % MARK: problem 4c
-\-\ \newline
+\-\ \newline \newline
 \-\ \it{ c) Use your encoding strategy to decode the following string: 0 1010 1100 1100 }
 
-\-\ \newline
 \[ \textnormal{(0 1010 1100 1100)}_2 = (2764)_{10} \]
 
 \textnormal{Using the Derank Algorithm:}
