@@ -14,6 +14,10 @@
 
 - **_Homework 6:_** Recursion, Unravelling, Algorithm Runtimes.
 
+- **_Homework 7:_** Encoding, Huffman Encoding, Ranking / Deranking
+
+- **_Homework 8:_** Graphs, Eulierian Paths, Hamiltonian Paths 
+
 ### **Resources**
 
 - [**_latex (stripped package)_**](https://www.tug.org/mactex/morepackages.html)
