@@ -96,7 +96,7 @@
 \[ N(d) = 1 + \sum_{i = 1}^{n} N(d - i); N(0) = 1 \]
 
 % MARK: Problem 2c
-\-\ \it{ c) Use the guess-and-check method to guess a formula for N(d). Prove that your formula holds bu induction on d. }
+\-\ \it{ c) Use the guess-and-check method to guess a formula for N(d). Prove that your formula holds by induction on d. }
 
 \[N(d) = \{1, 2, 4, 8, ...\}\]
 \[ = 2^d \]
@@ -106,7 +106,7 @@
   \item \textnormal{Base Case:} \newline
   N(0) = 1 = \(2^0\) = Number of nodes on a zero tree \newline
 
-  \item \textnormal{ Induction Step: } \newline
+  \item \textnormal{ Induction Step (using Strong Induction): } \newline
   \textnormal{ \(\forall t > 0 \) assume \(N(t) = 2^t\). Show \(N(t + 1) = 2^{t + 1}\) } \\
   \begin{eqnarray*}
     N(t + 1) &=& 1 + N(t) + N(t - 1) + \dots \\
@@ -126,14 +126,14 @@
 \textnormal{ If the tournament has 1 player then the graph with only 1 vertex has a trivial hamiltonian path. }
 
 \item \textnormal{Inductive Step:} \newline
-\textnormal{ Let n be an arbitrary integer such that \(n > 1\). Assume that any tournament with n - 1 players, the corresponding graph has a hamiltonian path. } \newline \newline 
-\textnormal{ Consider an arbitrary tournament T with n players \(\{1, ..., n\}\). Then if you consider the tournament T' involving only \{1,...n - 1\, then by the inductive hypothesis, there is a hamiltonian path \((a_1,...,a_{n-1})\) in the corresponding graph. }
+\textnormal{ Let n be an arbitrary integer such that \(n > 1\). Assume that for any tournament with n - 1 players, the corresponding graph has a hamiltonian path. } \newline \newline 
+\textnormal{ Consider an arbitrary tournament T with n players \(\{1, ..., n\}\). Then if you consider the tournament T' involving only \{1,...n - 1\}, then by the inductive hypothesis, there is a hamiltonian path \((a_1,...,a_{n-1})\) in the corresponding graph. }
 
 \begin{itemize}
 \item \textnormal{Case 1: Player n wins against player \(a_1\). Then T has the hamiltonian path \((n, a_1,..., a_{n-1})\) }
 \item \textnormal{Case 2: Player \(a_{n - 1}\) wins against player n. Then T has the hamiltonian path \((a_1,..., a_{n-1}, n)\) }
 \item \textnormal{Case 3: Player n loses against player \(a_1\) and player n wins against player \(a_{n-1}\). Then T has the hamiltonian path \((a1, a2,..., a_{i - 1}, n, a_i,...a_{n-1} )\)} \newline \newline
-\-\ \it{ Where \(a_i\) is the first in \((a_2,...a_{n-1})\) that n wins.  }
+\-\ \it{ Where \(a_i\) is the first in \((a_2,...a_{n-1})\) that n wins against.  }
 
 \end{itemize}
 \end{itemize}
